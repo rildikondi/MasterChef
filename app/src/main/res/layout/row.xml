@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+    <TextView
+        android:id="@+id/nomeTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="70dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:text="Medium Text"
+        android:textColor="#00DDDD"
+        android:textSize="14sp" />
+
+
+    <EditText
+        android:id="@+id/fieldEditText"
+        android:layout_height="70dp"
+        android:inputType="text"
+        android:layout_width="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/nomeTextView"
+        android:layout_toRightOf="@+id/nomeTextView" />
+</RelativeLayout>

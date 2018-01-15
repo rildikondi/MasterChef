@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">MasterChef</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string-array name="tipoDiBox_array">
+        <item>BOX DI PROVA</item>
+        <item>ABONAMENTO</item>
+    </string-array>
+
+    <declare-styleable name="ExpandablePanel">
+        <attr name="animationDuration" format="reference"/>
+        <attr name="handle" format="reference" />
+        <attr name="content" format="reference" />
+        <attr name="collapsedHeight" format="dimension" />
+    </declare-styleable>
+</resources>
