@@ -1,4 +1,4 @@
-package com.example.amarildo.masterchef;
+package com.example.amarildo.masterchef.Utility;
 
 /**
  * Created by amarildo on 18-01-05.

@@ -1,19 +1,23 @@
-package com.example.amarildo.masterchef;
+package com.example.amarildo.masterchef.Steps;
 
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.amarildo.masterchef.BaseFragment;
+import com.example.amarildo.masterchef.BaseStepFragment;
+import com.example.amarildo.masterchef.R;
 
-public class FifthFragment extends Fragment {
+
+public class FifthFragment extends BaseStepFragment {
 
     private static final String ARG_PARAM1 = "param1";
     private int mParam1;
-
-
+    int nrTotale = 0;
 
     public FifthFragment() {
         // Required empty public constructor
@@ -40,8 +44,31 @@ public class FifthFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+      /*  if(getArguments().get("nrPage") != null)
+            Log.i("nrPage","nrPage" + getArguments().get("nrPage"));
+        if(getArguments().get("secondSelectedNr") != null){
+
+            nrTotale = getArguments().getInt("secondSelectedNr");
+            Log.i("nrPage","nrPage" + getArguments().get("nrPage"));
+        }*/
+
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_fifth, container, false);
     }
 
+    @Override
+    public int getPageNr() {
+        return 0;
+    }
+
+    @Override
+    public boolean validateStep() {
+        return false;
+    }
+
+    @Override
+    public void updateGui() {
+
+    }
 }

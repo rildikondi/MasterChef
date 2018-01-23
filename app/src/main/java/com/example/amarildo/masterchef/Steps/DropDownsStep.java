@@ -1,29 +1,30 @@
-package com.example.amarildo.masterchef;
+package com.example.amarildo.masterchef.Steps;
 
-
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.Transformation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import com.example.amarildo.masterchef.BaseStepFragment;
+import com.example.amarildo.masterchef.MainActivity;
+import com.example.amarildo.masterchef.R;
 
-
-
-public class FirstFragment extends Fragment {
+public class DropDownsStep extends BaseStepFragment {
 
     private static final String ARG_PARAM1 = "param1";
     private int mParam1;
-    long idPositionType = -1;
-    int temp;
-    View view;
-
+    private long idPositionType = -1;
+    private int temp;
+    private View view;
+    private final int NUMBER_OF_PAGE = 0;
     LinearLayout firstItems_LinearLayout;
     LinearLayout secondItems_LinearLayout;
     LinearLayout thirdItems_LinearLayout;
@@ -37,44 +38,62 @@ public class FirstFragment extends Fragment {
     ImageView arrow2;
 
     View _lastColored = null;
-
-    TextView expandedList2_Item1;
-    TextView expandedList2_Item2;
-    TextView expandedList2_Item3;
-    TextView expandedList2_Item4;
+    SharedPreferences sharedPreferences;
 
 
 
-    View.OnClickListener thirdGroupItemListener;
+    @Override
+    public int getPageNr() {
+        return NUMBER_OF_PAGE;
+    }
 
+    @Override
+    public void updateGui() {
 
-    public FirstFragment() {
+    }
+
+    public DropDownsStep() {
         // Required empty public constructor
     }
 
+    public static DropDownsStep newInstance(int param1) {
 
-
-    public static FirstFragment newInstance(int param1) {
-
-        FirstFragment fragment = new FirstFragment();
+        DropDownsStep fragment = new DropDownsStep();
         Bundle args = new Bundle();
         args.putInt(ARG_PARAM1, param1);
         fragment.setArguments(args);
+
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
 
-        if (getArguments() != null) {
+        Bundle bundle = new Bundle();
+        bundle.putString("y", "koko"); //any string to be sent
+        MainActivity mainActivity = (MainActivity) getActivity();
+        mainActivity.saveData(NUMBER_OF_PAGE, bundle);
 
-            mParam1 = getArguments().getInt(ARG_PARAM1);
+        sharedPreferences = getActivity().getSharedPreferences("com.example.amarildo.masterchef", Context.MODE_PRIVATE);
+
+        if (savedInstanceState != null)
+        {
+            sharedPreferences.edit().putInt("secondSelectedNr", savedInstanceState.getInt("secondSelectedNr")).apply();
+            sharedPreferences.edit().putInt("thirdSelectedNr", savedInstanceState.getInt("thirdSelectedNr")).apply();
+        }
+        else
+        {
+            sharedPreferences.edit().remove("secondSelectedNr").commit();
+            sharedPreferences.edit().remove("thirdSelectedNr").commit();
         }
     }
 
+    @Override
+    public void setArguments(Bundle args) {
 
+        super.setArguments(args);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container,
@@ -82,39 +101,39 @@ public class FirstFragment extends Fragment {
 
         // Inflate the layout for this fragment
         view =  inflater.inflate(R.layout.fragment_first, container, false);
+        Log.i("selection", "Shared secondSelectedNr "+ sharedPreferences.getInt("secondSelectedNr", 0));
+        Log.i("selection", "Shared thirdSelectedNr "+ sharedPreferences.getInt("thirdSelectedNr", 0));
 
         // arrow reference
         arrow = (ImageView) view.findViewById(R.id.imageGroupIndicator);
         arrow1 = (ImageView) view.findViewById(R.id.imageGroupIndicator1);
         arrow2 = (ImageView) view.findViewById(R.id.imageGroupIndicator2);
 
-
         header_RelativeLayout = view.findViewById(R.id.headerRelativeLayout);
         firstItems_LinearLayout = view.findViewById(R.id.firstItemsLinearLayout);
-
-
         handleHeaderOne();
-        handleItems(firstItems_LinearLayout);
-
+        handleItems(firstItems_LinearLayout, "firstSelected");
 
         header2_RelativeLayout = view.findViewById(R.id.header2RelativeLayout);
         secondItems_LinearLayout = view.findViewById(R.id.secondItemsLinearLayout);
         handleHeaderTwo();
-        handleItems(secondItems_LinearLayout);
+        handleItems(secondItems_LinearLayout, "secondSelectedNr");
 
         header3_RelativeLayout = view.findViewById(R.id.header3RelativeLayout);
         thirdItems_LinearLayout = view.findViewById(R.id.thirdItemsLinearLayout);
         handleHeaderThree();
-        handleItems(thirdItems_LinearLayout);
-        //handleThirdItems();
+        handleItems(thirdItems_LinearLayout, "thirdSelectedNr");
 
         if(savedInstanceState != null && savedInstanceState.getInt("firstSelected") != 0){
+
+            Log.i("selection", "Bundle thirdSelectedNr "+ savedInstanceState.getInt("thirdSelectedNr"));
             TextView t  = firstItems_LinearLayout.findViewById(savedInstanceState.getInt("firstSelected"));
             t.setTextColor(Color.GREEN);
             t.setTag("green");
             expand(firstItems_LinearLayout);
             arrow.animate().rotationBy(180);
-        }else{
+        }
+        else {
 
             expand(firstItems_LinearLayout);
             arrow.animate().rotationBy(180);
@@ -128,73 +147,20 @@ public class FirstFragment extends Fragment {
             TextView t1  = secondItems_LinearLayout.findViewById(savedInstanceState.getInt("secondSelected"));
             t1.setTextColor(Color.GREEN);
             t1.setTag("green");
+            int vauleOfItem = savedInstanceState.getInt("secondSelectedNr");
+            sharedPreferences.edit().putInt("secondSelectedNr",vauleOfItem);
         }
 
         if(savedInstanceState != null && savedInstanceState.getInt("thirdSelected") != 0){
+
             TextView t2  = thirdItems_LinearLayout.findViewById(savedInstanceState.getInt("thirdSelected"));
             t2.setTextColor(Color.GREEN);
             t2.setTag("green");
+            int vauleOfItem = savedInstanceState.getInt("thirdSelectedNr");
+            sharedPreferences.edit().putInt("thirdSelectedNr",vauleOfItem);
         }
 
-
         return view;
-    }
-
-    public static void expand(final View v) {
-
-        v.measure(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        final int targetHeight = v.getMeasuredHeight();
-
-        // Older versions of android (pre API 21) cancel animations for views with a height of 0.
-        v.getLayoutParams().height = 1;
-        v.setVisibility(View.VISIBLE);
-        Animation a = new Animation()
-        {
-            @Override
-            protected void applyTransformation(float interpolatedTime, Transformation t) {
-                v.getLayoutParams().height = interpolatedTime == 1
-                        ? LinearLayout.LayoutParams.WRAP_CONTENT
-                        : (int)(targetHeight * interpolatedTime);
-                v.requestLayout();
-            }
-
-            @Override
-            public boolean willChangeBounds() {
-                return true;
-            }
-        };
-
-        // 1dp/ms
-        a.setDuration(((int)(targetHeight / v.getContext().getResources().getDisplayMetrics().density)) * 2);
-        v.startAnimation(a);
-    }
-
-    public static void collapse(final View v) {
-
-        final int initialHeight = v.getMeasuredHeight();
-
-        Animation a = new Animation()
-        {
-            @Override
-            protected void applyTransformation(float interpolatedTime, Transformation t) {
-
-                if(interpolatedTime == 1){
-                    v.setVisibility(View.GONE);
-                }else{
-                    v.getLayoutParams().height = initialHeight - (int)(initialHeight * interpolatedTime);
-                    v.requestLayout();
-                }
-            }
-
-            @Override
-            public boolean willChangeBounds() {
-                return true;
-            }
-        };
-
-        // 1dp/ms
-        a.setDuration(((int)(initialHeight / v.getContext().getResources().getDisplayMetrics().density)) * 2 );
-        v.startAnimation(a);
     }
 
     public void handleHeaderOne(){
@@ -219,7 +185,8 @@ public class FirstFragment extends Fragment {
                         arrow2.animate().rotationBy(-180).setDuration(300);
                     }
 
-                }else if(arrow.getRotation() == 180){
+                }
+                else if(arrow.getRotation() == 180){
 
                     arrow.animate().rotationBy(-180).setDuration(300);
                     collapse(firstItems_LinearLayout);
@@ -257,7 +224,6 @@ public class FirstFragment extends Fragment {
                 }
             }
         });
-
     }
 
     public void handleHeaderThree(){
@@ -291,42 +257,33 @@ public class FirstFragment extends Fragment {
         });
     }
 
-    public void handleThirdItems(){
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
 
-        // items of third Group
-        expandedList2_Item1 = view.findViewById(R.id.expandedList2Item1);
-        expandedList2_Item2 = view.findViewById(R.id.expandedList2Item2);
-        expandedList2_Item3 = view.findViewById(R.id.expandedList2Item3);
-        expandedList2_Item4 = view.findViewById(R.id.expandedList2Item4);
+        TextView t2 = secondItems_LinearLayout.findViewWithTag("green");
+        TextView t3 = thirdItems_LinearLayout.findViewWithTag("green");
 
-        thirdGroupItemListener =  new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        if(firstItems_LinearLayout.findViewWithTag("green")!= null){
 
-                if(view.findViewWithTag("green") != null){
+            outState.putInt("firstSelected",firstItems_LinearLayout.findViewWithTag("green").getId());
+        }
+        if(t2 != null){
 
-                    TextView tochange = (TextView) view.findViewWithTag("green");
-                    tochange.setTag("");
-                    tochange.setTextColor(Color.parseColor("#FFAAAAAA"));
-                }
+            outState.putInt("secondSelected",t2.getId());
+            int vauleOfItem = Integer.parseInt(Character.toString(t2.getText().charAt(0)));
+            outState.putInt("secondSelectedNr",vauleOfItem);
+        }
+        if(t3 != null){
 
-                TextView mytext = (TextView) v;
-                mytext.setTag("green");
-                mytext.setTextColor(Color.GREEN);
-            }
-        };
-
-        expandedList2_Item1.setOnClickListener(thirdGroupItemListener);
-        expandedList2_Item2.setOnClickListener(thirdGroupItemListener);
-        expandedList2_Item3.setOnClickListener(thirdGroupItemListener);
-        expandedList2_Item4.setOnClickListener(thirdGroupItemListener);
-
-
+            outState.putInt("thirdSelected",t3.getId());
+            int vauleOfItem = Integer.parseInt(Character.toString(t3.getText().charAt(0)));
+            outState.putInt("thirdSelectedNr",vauleOfItem);
+        }
     }
 
 
-
-    public void handleItems(final LinearLayout firstItemsLn){
+    public void handleItems(final LinearLayout firstItemsLn, final String nrSelection){
 
         View.OnClickListener secondItemsListener = new View.OnClickListener() {
             @Override
@@ -334,19 +291,17 @@ public class FirstFragment extends Fragment {
 
                 TextView controlTextView = (TextView) v;
                 String contenti = (String) controlTextView.getText();
-                if (contenti == "RESET") {
+                if (contenti.equals("RESET")) {
+
                     if (firstItemsLn.findViewWithTag("green") != null) {
 
                         TextView tochange = (TextView) firstItemsLn.findViewWithTag("green");
                         tochange.setTag("");
                         tochange.setTextColor(Color.parseColor("#FFAAAAAA"));
+                        sharedPreferences.edit().remove(nrSelection).apply();
                     }
 
-
-
-
-                } else {
-
+                }else {
 
                     if (firstItemsLn.findViewWithTag("green") != null) {
 
@@ -356,42 +311,55 @@ public class FirstFragment extends Fragment {
                     }
 
                     TextView mytext = (TextView) v;
-
                     mytext.setTag("green");
                     mytext.setTextColor(Color.GREEN);
 
-                    // firstItemsLn.findViewWithTag("green").getId();
+                    if(nrSelection !="firstSelected") {
+                        Log.i("myChoise", mytext.getText().charAt(0)+"");
+
+                        sharedPreferences.edit().remove(nrSelection).apply();
+                        int vauleOfItem = Integer.parseInt(Character.toString(mytext.getText().charAt(0)));
+                        sharedPreferences.edit().putInt(nrSelection, vauleOfItem).apply();
+                    }
                 }
             }
         };
 
-
         int nrItems = firstItemsLn.getChildCount();
         for (int i = 0; i < nrItems; i++){
-
             firstItemsLn.getChildAt(i).setOnClickListener(secondItemsListener);
         }
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        //deleteSharedData();
+    }
 
+    public void deleteSharedData(){
+        SharedPreferences sharedPreferences2 = getActivity().getSharedPreferences("com.example.amarildo.masterchef", Context.MODE_PRIVATE);
 
-
+        sharedPreferences2.edit().remove("secondSelectedNr").commit();
+        sharedPreferences2.edit().remove("thirdSelectedNr").commit();
+    }
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
+    public boolean validateStep() {
 
-        if(firstItems_LinearLayout.findViewWithTag("green")!= null){
+        int secondSelectedValue = sharedPreferences.getInt("secondSelectedNr",0);
+        Log.i("positionArriveInMain", secondSelectedValue+"");
 
-            outState.putInt("firstSelected",firstItems_LinearLayout.findViewWithTag("green").getId());
+        int thirdSelectedValue = sharedPreferences.getInt("thirdSelectedNr",0);
+        Log.i("positionArriveInMain", secondSelectedValue+"");
+
+        if(secondSelectedValue != 0 && thirdSelectedValue != 0)
+        {
+            return true;
         }
-        if(secondItems_LinearLayout.findViewWithTag("green")!= null){
-
-            outState.putInt("secondSelected",secondItems_LinearLayout.findViewWithTag("green").getId());
-        }
-        if(thirdItems_LinearLayout.findViewWithTag("green")!= null){
-
-            outState.putInt("thirdSelected",thirdItems_LinearLayout.findViewWithTag("green").getId());
+        else
+        {
+            return false;
         }
     }
 }

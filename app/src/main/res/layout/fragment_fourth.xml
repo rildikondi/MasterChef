@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/fourthLinearLayout"
-    tools:context="com.example.amarildo.masterchef.FourthFragment">
+    tools:context="com.example.amarildo.masterchef.Steps.AddressDataStep">
 
 
     <ScrollView
@@ -292,8 +292,280 @@
                 android:textColor="#000000"
                 android:textSize="12sp" />
 
+            <LinearLayout
+                android:id="@+id/fattCommLinearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginBottom="2dp"
+                    android:foregroundTint="@android:color/darker_gray">
 
 
+                    <TextView
+                        android:id="@+id/nomeAzinendaTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:background="#ffffff"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:text="NOME AZIENDA * "
+                        android:textColor="@android:color/darker_gray"
+                        android:textSize="14sp" />
+
+
+                    <EditText
+                        android:id="@+id/nomeAziendaEditText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_toEndOf="@+id/nomeAzinendaTextView"
+                        android:layout_toRightOf="@+id/nomeAzinendaTextView"
+                        android:background="#ffffff"
+                        android:inputType="text"
+                        android:textColorLink="#ffffff" />
+                </RelativeLayout>
+
+                <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginBottom="2dp"
+                    android:foregroundTint="@android:color/darker_gray">
+
+
+                    <TextView
+                        android:id="@+id/codeFiscaleTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:background="#ffffff"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:text="CODE FISCALE"
+                        android:textColor="@android:color/darker_gray"
+                        android:textSize="14sp" />
+
+
+                    <EditText
+                        android:id="@+id/codeFiscaleEditText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_toEndOf="@+id/codeFiscaleTextView"
+                        android:layout_toRightOf="@+id/codeFiscaleTextView"
+                        android:background="#ffffff"
+                        android:inputType="text"
+                        android:textColorLink="#ffffff" />
+                </RelativeLayout>
+
+                <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginBottom="2dp"
+                    android:foregroundTint="@android:color/darker_gray">
+
+
+                    <TextView
+                        android:id="@+id/partitaIvaTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:background="#ffffff"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:text="PARTITA IVA *"
+                        android:textColor="@android:color/darker_gray"
+                        android:textSize="14sp" />
+
+
+                    <EditText
+                        android:id="@+id/partitaIvaEditText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_toEndOf="@+id/partitaIvaTextView"
+                        android:layout_toRightOf="@+id/partitaIvaTextView"
+                        android:background="#ffffff"
+                        android:inputType="text"
+                        android:textColorLink="#ffffff" />
+                </RelativeLayout>
+
+                <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginBottom="2dp"
+                    android:foregroundTint="@android:color/darker_gray">
+
+
+                    <TextView
+                        android:id="@+id/indirizzoTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:background="#ffffff"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:text="INDIRIZZO *"
+                        android:textColor="@android:color/darker_gray"
+                        android:textSize="14sp" />
+
+
+                    <EditText
+                        android:id="@+id/indirizzoEditText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_toEndOf="@+id/indirizzoTextView"
+                        android:layout_toRightOf="@+id/indirizzoTextView"
+                        android:background="#ffffff"
+                        android:inputType="text"
+                        android:textColorLink="#ffffff" />
+                </RelativeLayout>
+
+                <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginBottom="2dp"
+                    android:foregroundTint="@android:color/darker_gray">
+
+
+                    <TextView
+                        android:id="@+id/cittaTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:background="#ffffff"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:text="CITTA *"
+                        android:textColor="@android:color/darker_gray"
+                        android:textSize="14sp" />
+
+
+                    <EditText
+                        android:id="@+id/cittaEditText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_toEndOf="@+id/cittaTextView"
+                        android:layout_toRightOf="@+id/cittaTextView"
+                        android:background="#ffffff"
+                        android:inputType="text"
+                        android:textColorLink="#ffffff" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+                    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                        android:layout_width="0dp"
+                        android:layout_height="60dp"
+                        android:layout_marginBottom="2dp"
+                        android:layout_marginRight="2dp"
+                        android:layout_weight="1"
+                        android:foregroundTint="@android:color/darker_gray">
+
+
+                        <TextView
+                            android:id="@+id/capTextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:background="#ffffff"
+                            android:gravity="center_vertical"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp"
+                            android:text="CAP *"
+                            android:textColor="@android:color/darker_gray"
+                            android:textSize="14sp" />
+
+
+                        <EditText
+                            android:id="@+id/capEditText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_alignParentTop="true"
+                            android:layout_toEndOf="@+id/capTextView"
+                            android:layout_toRightOf="@+id/capTextView"
+                            android:background="#ffffff"
+                            android:inputType="text"
+                            android:textColorLink="#ffffff" />
+                    </RelativeLayout>
+
+                    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                        android:layout_width="0dp"
+                        android:layout_height="60dp"
+                        android:layout_marginBottom="2dp"
+                        android:layout_weight="1"
+                        android:foregroundTint="@android:color/darker_gray">
+
+
+                        <TextView
+                            android:id="@+id/provinciaTextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:background="#ffffff"
+                            android:gravity="center_vertical"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp"
+                            android:text="PROVINCIA *"
+                            android:textColor="@android:color/darker_gray"
+                            android:textSize="14sp" />
+
+
+                        <EditText
+                            android:id="@+id/provinciaEditText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_alignParentTop="true"
+                            android:layout_toEndOf="@+id/provinciaTextView"
+                            android:layout_toRightOf="@+id/provinciaTextView"
+                            android:background="#ffffff"
+                            android:inputType="text"
+                            android:textColorLink="#ffffff" />
+                    </RelativeLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingBottom="10dp"
+                android:paddingTop="5dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:text="Inviando i tuoi dati dichiari di aver letto e acettato le Condizioni di Fornitura indicate da SecondChef "
+                    android:textAlignment="center"
+                    android:textColor="@android:color/darker_gray"
+                    android:textSize="14sp" />
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 </RelativeLayout>

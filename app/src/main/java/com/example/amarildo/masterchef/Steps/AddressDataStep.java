@@ -1,14 +1,12 @@
-package com.example.amarildo.masterchef;
+package com.example.amarildo.masterchef.Steps;
 
 
 import android.content.Context;
-import android.graphics.Rect;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.widget.CompoundButton;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
@@ -17,15 +15,15 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.Switch;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
-
+;
+import com.example.amarildo.masterchef.BaseStepFragment;
+import com.example.amarildo.masterchef.R;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 
-public class FourthFragment extends Fragment {
+public class AddressDataStep extends BaseStepFragment {
 
     private static final String ARG_PARAM1 = "param1";
 
@@ -34,7 +32,7 @@ public class FourthFragment extends Fragment {
     Switch switch_Button;
 
     TextView last_tv;
-
+    LinearLayout fattComm_LinearLayout;
     ExpandableListView nuovoIn_expandable_ListView;
     ExpandableListAdapter expandableListAdapter;
     List<String> expandableListTitle;
@@ -55,14 +53,14 @@ public class FourthFragment extends Fragment {
     }
 
 
-    public FourthFragment() {
+    public AddressDataStep() {
         // Required empty public constructor
     }
 
 
-    public static FourthFragment newInstance(int param1) {
+    public static AddressDataStep newInstance(int param1) {
 
-        FourthFragment fragment = new FourthFragment();
+        AddressDataStep fragment = new AddressDataStep();
         Bundle args = new Bundle();
         args.putInt(ARG_PARAM1, param1);
         fragment.setArguments(args);
@@ -70,16 +68,7 @@ public class FourthFragment extends Fragment {
         return fragment;
     }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
 
-        super.onCreate(savedInstanceState);
-
-        if (getArguments() != null) {
-
-            mParam1 = getArguments().getInt(ARG_PARAM1);
-        }
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -87,29 +76,13 @@ public class FourthFragment extends Fragment {
 
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_fourth, container, false);
-
+        fattComm_LinearLayout = view.findViewById(R.id.fattCommLinearLayout);
         fourth_ScrollView = view.findViewById(R.id.fourthScrollView);
 
+        handleViewTreeObserver(view);
 
-
-        view.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
-                Rect r = new Rect();
-                //r will be populated with the coordinates of your view that area still visible.
-                view.getWindowVisibleDisplayFrame(r);
-
-                int heightDiff = view.getRootView().getHeight() - (r.bottom - r.top);
-                if (heightDiff > 500) { // if more than 100 pixels, its probably a keyboard...
-
-
-                    view.setPadding(0, 0, 0, 360);
-
-                } else {
-                    view.setPadding(0, 0, 0, 0);
-                }
-            }
-        });
+        /*if(getArguments().get("nrPage") != null)
+            Log.i("nrPage","nrPage" + getArguments().get("nrPage"));*/
 
 
         //final RelativeLayout layout = (RelativeLayout) view.findViewById(R.id.fourthLinearLayout);
@@ -125,27 +98,23 @@ public class FourthFragment extends Fragment {
         final View ResultText = addView;
 
 
-        RelativeLayout.LayoutParams p = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+        /*RelativeLayout.LayoutParams p = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
         p.addRule(RelativeLayout.BELOW, R.id.switchButton);
         ResultText.setLayoutParams(p);
-
         final View relativeLayout = view.findViewById(R.id.middleRL);
-
+        ((RelativeLayout) relativeLayout).addView(ResultText);
+        ((RelativeLayout) relativeLayout).removeView(ResultText);*/
 
 
         switch_Button = view.findViewById(R.id.switchButton);
         switch_Button.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-
-                    ((RelativeLayout) relativeLayout).addView(ResultText);
+                    expand(fattComm_LinearLayout);
 
                 } else {
-
-                    ((RelativeLayout) relativeLayout).removeView(ResultText);
-
+                    collapse(fattComm_LinearLayout);
                 }
-
             }
         });
 
@@ -153,13 +122,28 @@ public class FourthFragment extends Fragment {
         nuovoIn_expandable_ListView = (ExpandableListView) view.findViewById(R.id.nuovoInExpandableListView);
         expandableListDetail = getData();
         expandableListTitle = new ArrayList<String>(expandableListDetail.keySet());
-        expandableListAdapter = new CustomExpandableListAdapter(this.getContext(), expandableListTitle, expandableListDetail, "address");
-        nuovoIn_expandable_ListView.setAdapter(expandableListAdapter);
 
-
+        //expandableListAdapter = new CustomExpandableListAdapter(this.getContext(), expandableListTitle, expandableListDetail, "address");
+        //nuovoIn_expandable_ListView.setAdapter(expandableListAdapter);
         //KeyboardUtil keyboardUtil = new KeyboardUtil(getActivity(), linearfour);
 
         return view;
+    }
+
+    @Override
+    public int getPageNr() {
+        return 3;
+    }
+
+    @Override
+    public boolean validateStep() {
+        return true;
+    }
+
+
+    @Override
+    public void updateGui() {
+
     }
 
 }

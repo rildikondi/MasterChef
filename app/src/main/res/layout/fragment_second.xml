@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.amarildo.masterchef.SecondFragment">
+    tools:context="com.example.amarildo.masterchef.Steps.SelezioneRicetteStep">
 
 
 <LinearLayout
@@ -29,6 +29,7 @@
                 android:textSize="14sp" />
 
             <TextView
+                android:id="@+id/nrRicetteTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="5"
@@ -74,9 +75,10 @@
                 android:textSize="14sp" />
 
             <TextView
+                android:id="@+id/nrSelezionateTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="5"
+                android:text="0"
                 android:textColor="#030303"
                 android:textSize="14sp" />
 
@@ -88,6 +90,7 @@
                 android:textSize="14sp" />
 
             <TextView
+                android:id="@+id/nrTotaleTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="5"
@@ -107,6 +110,7 @@
                 android:textSize="14sp" />
 
             <TextView
+                android:id="@+id/prezzoTotTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="555"

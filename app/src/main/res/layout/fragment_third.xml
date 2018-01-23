@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.amarildo.masterchef.ThirdFragment">
+    tools:context="com.example.amarildo.masterchef.Steps.PersonalDataStep">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -107,6 +107,40 @@
 
 
                 <TextView
+                    android:id="@+id/nomeUtenteTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="#ffffff"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:text="NOME UTENTE *"
+                    android:textColor="@android:color/darker_gray"
+                    android:textSize="14sp"/>
+
+
+                <EditText
+                    android:id="@+id/nomeUtenteEditText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_toEndOf="@+id/nomeUtenteTextView"
+                    android:layout_toRightOf="@+id/nomeUtenteTextView"
+                    android:background="#ffffff"
+                    android:inputType="text"
+                    android:textColorLink="#ffffff" />
+            </RelativeLayout>
+
+            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginBottom="2dp"
+                android:foregroundTint="@android:color/darker_gray">
+
+
+                <TextView
                     android:id="@+id/emailTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
@@ -132,6 +166,78 @@
                     android:inputType="text"
                     android:textColorLink="#ffffff" />
             </RelativeLayout>
+
+            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginBottom="2dp"
+                android:foregroundTint="@android:color/darker_gray">
+
+
+                <TextView
+                    android:id="@+id/passwordTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="#ffffff"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:text="PASSWORD * "
+                    android:textColor="@android:color/darker_gray"
+                    android:textSize="14sp" />
+
+
+                <EditText
+                    android:id="@+id/passwordEditText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_toEndOf="@+id/passwordTextView"
+                    android:layout_toRightOf="@+id/passwordTextView"
+                    android:background="#ffffff"
+                    android:inputType="text"
+                    android:textColorLink="#ffffff" />
+            </RelativeLayout>
+
+            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginBottom="2dp"
+                android:foregroundTint="@android:color/darker_gray">
+
+
+                <TextView
+                    android:id="@+id/passwordCTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="#ffffff"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:text="CONFERMA PASSWORD * "
+                    android:textColor="@android:color/darker_gray"
+                    android:textSize="14sp" />
+
+
+                <EditText
+                    android:id="@+id/passwordCEditText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_toEndOf="@+id/passwordCTextView"
+                    android:layout_toRightOf="@+id/passwordCTextView"
+                    android:background="#ffffff"
+                    android:inputType="text"
+                    android:textColorLink="#ffffff" />
+            </RelativeLayout>
+
+
+
+
 
             <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"

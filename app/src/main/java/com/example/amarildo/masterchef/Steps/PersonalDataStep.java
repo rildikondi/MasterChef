@@ -1,54 +1,53 @@
-package com.example.amarildo.masterchef;
+package com.example.amarildo.masterchef.Steps;
 
 
 import android.content.Context;
-import android.graphics.Rect;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
-import android.view.WindowManager;
-import android.widget.AdapterView;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.amarildo.masterchef.BaseFragment;
+import com.example.amarildo.masterchef.BaseStepFragment;
+import com.example.amarildo.masterchef.R;
 
-public class ThirdFragment extends Fragment {
+
+public class PersonalDataStep extends BaseStepFragment {
 
     private static final String ARG_PARAM1 = "param1";
 
-    private MoveToNextPageListener moveToNextPageListener;
-
-    public interface MoveToNextPageListener{
-
-        void moveNextFragment();
+    @Override
+    public int getPageNr() {
+        return 2;
     }
 
+    @Override
+    public boolean validateStep() {
+
+        return validate();
+    }
+
+    @Override
+    public void updateGui() {
+
+    }
 
     @Override
     public void onDetach() {
         super.onDetach();
 
-        moveToNextPageListener = null;
     }
-
 
     @Override
     public void onAttach(Context context) {
 
         super.onAttach(context);
 
-        if (context instanceof ThirdFragment.MoveToNextPageListener) {
-            moveToNextPageListener = (ThirdFragment.MoveToNextPageListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnNewNoteListener");
-        }
+
 
     }
 
@@ -58,18 +57,21 @@ public class ThirdFragment extends Fragment {
 
     private EditText nome_EditText;
     private EditText cognome_EditText;
+    private EditText nomeUtente_EditText;
+    private EditText password_EditText;
+    private EditText passwordC_EditText;
     private EditText email_EditText;
     private EditText cell_EditText;
     private EditText telefono_EditText;
 
-    public ThirdFragment() {
+    public PersonalDataStep() {
         // Required empty public constructor
     }
 
 
-    public static ThirdFragment newInstance(int param1) {
+    public static PersonalDataStep newInstance(int param1) {
 
-        ThirdFragment fragment = new ThirdFragment();
+        PersonalDataStep fragment = new PersonalDataStep();
         Bundle args = new Bundle();
         args.putInt(ARG_PARAM1, param1);
         fragment.setArguments(args);
@@ -77,16 +79,7 @@ public class ThirdFragment extends Fragment {
         return fragment;
     }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
 
-        super.onCreate(savedInstanceState);
-
-        if (getArguments() != null) {
-
-            mParam1 = getArguments().getInt(ARG_PARAM1);
-        }
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -97,62 +90,54 @@ public class ThirdFragment extends Fragment {
 
         //KeyboardUtil keyboardUtil = new KeyboardUtil(getActivity(), view);
 
-        view.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
-                Rect r = new Rect();
-                //r will be populated with the coordinates of your view that area still visible.
-                view.getWindowVisibleDisplayFrame(r);
-
-                int heightDiff = view.getRootView().getHeight() - (r.bottom - r.top);
-                if (heightDiff > 500) { // if more than 100 pixels, its probably a keyboard...
-
-
-                    view.setPadding(0,0,0,360);
-
-                }else{
-                    view.setPadding(0,0,0,0);
-                }
-            }
-        });
-
+        handleViewTreeObserver(view);
 
         nome_EditText  = view.findViewById(R.id.nomeEditText);
         cognome_EditText = view.findViewById(R.id.cognomeEditText);
+        nomeUtente_EditText = view.findViewById(R.id.nomeUtenteEditText);
         email_EditText = view.findViewById(R.id.emailEditText);
+        password_EditText = view.findViewById(R.id.passwordEditText);
+        passwordC_EditText = view.findViewById(R.id.passwordCEditText);
         cell_EditText = view.findViewById(R.id.cellEditText);
         telefono_EditText = view.findViewById(R.id.telefonoEditText);
 
 
-        validate();
+        //validate();
 
 
         return view;
     }
 
-    public void validate(){
+    public boolean validate(){
         final String nome = nome_EditText.getText().toString().trim();
         final String cognome = cognome_EditText.getText().toString().trim();
+        final String nomeUtente = nomeUtente_EditText.getText().toString().trim();
         final String email = email_EditText.getText().toString().trim();
+        final String password = password_EditText.getText().toString().trim();
+        final String passwordC = passwordC_EditText.getText().toString().trim();
         final String cell = cell_EditText.getText().toString().trim();
         final String tel = telefono_EditText.getText().toString().trim();
         final String regex = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[$@#!%*?&])[A-Za-z\\d$@#!%*?&]{8,15}";
 
-        if(nome.equals("") || email.equals("") || cognome.equals("") || cell.equals("") ){
+        if(nome.equals("") || email.equals("") || cognome.equals("") || nomeUtente.equals("")
+                || email.equals("") || password.equals("") || passwordC.equals("") ||cell.equals("") ){
 
             Toast.makeText(getActivity(), "Please fill all the fields!", Toast.LENGTH_SHORT).show();
-
-
+            return false;
         }
         else if (Patterns.EMAIL_ADDRESS.matcher(email).matches() == false)
         {
 
             Toast.makeText(getActivity(), "E-mail address is not valid!", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        else if(!password.equals(passwordC)){
 
+            Toast.makeText(getActivity(), "Passwords do not match", Toast.LENGTH_SHORT).show();
+            return false;
         }
         else{
-
-            moveToNextPageListener.moveNextFragment();
+            return true;
         }
 
     }

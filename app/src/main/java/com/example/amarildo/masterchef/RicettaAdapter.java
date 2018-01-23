@@ -1,15 +1,20 @@
 package com.example.amarildo.masterchef;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
 
 /**
  * Created by amarildo on 17-12-28.
@@ -20,16 +25,23 @@ public class RicettaAdapter extends ArrayAdapter<Ricetta> {
     Context mContext;
     int mLayoutResourceId;
     Ricetta mData[] = null;
-
+    ArrayList<Integer> savedPositions;
+    TextView nrDiRicetteTextView;
+    int nrSelezionate;
+    int numeroDiRicette;
     // resource -> row
 
-    public RicettaAdapter(Context context, int resource, Ricetta[] data){
+    public RicettaAdapter(Context context, int resource, Ricetta[] data, int numeroDiRicette,
+                          ArrayList<Integer> savedPositions, TextView nrDiRicetteTextView){
 
         super(context, resource, data);
 
         this.mContext = context;
         this.mLayoutResourceId =  resource;
         this.mData = data;
+        this.savedPositions = savedPositions;
+        this.nrDiRicetteTextView = nrDiRicetteTextView;
+        this.numeroDiRicette = numeroDiRicette;
     }
 
     @Override
@@ -65,22 +77,21 @@ public class RicettaAdapter extends ArrayAdapter<Ricetta> {
 
             if(type == 0){
 
-            row = inflater.inflate(mLayoutResourceId, parent, false);
+                row = inflater.inflate(mLayoutResourceId, parent, false);
+                holder = new RicettaHolder();
 
-            holder = new RicettaHolder();
-
-            //get a reference to the different view elements we wish to update
-            holder.nameTextView = (TextView) row.findViewById(R.id.nomeTextView);
-            holder.nameImageView = (ImageView) row.findViewById(R.id.ricettaImageView);
-            holder.name_Button = (TextView) row.findViewById(R.id.scegliButton);
-
-            row.setTag(holder);
-            }else
+                //get a reference to the different view elements we wish to update
+                holder.nameTextView = (TextView) row.findViewById(R.id.nomeTextView);
+                holder.nameImageView = (ImageView) row.findViewById(R.id.ricettaImageView);
+                holder.name_Button = (TextView) row.findViewById(R.id.scegliButton);
+                row.setTag(holder);
+            }
+            else
             {
                 row = inflater.inflate(R.layout.linear_row, parent, false);
-
             }
-        }else{
+        }
+        else{
             // otherwise use an existing one  -> brings reuseability of code more eficensy on memory
             holder = (RicettaHolder) row.getTag();
         }
@@ -100,13 +111,36 @@ public class RicettaAdapter extends ArrayAdapter<Ricetta> {
 
             //int resId = mContext.getResources().getIdentifier(ricetta.mNameOfImage, "drawable", mContext.getPackageName());
             //holder.nameImageView.setImageResource(resId);
-            holder.name_Button.setTag("green");
+
+            if(savedPositions != null){
+                nrSelezionate = savedPositions.size();
+                nrDiRicetteTextView.setText(""+ nrSelezionate);
+                boolean found = false;
+                for(int i = 0; i < savedPositions.size(); i++){
+                    if(position == savedPositions.get(i)){
+                        holder.name_Button.setTag("red");
+                        holder.name_Button.setBackgroundColor(Color.RED);
+                        found = true;
+                    }
+                }
+
+                if(found == false){
+                    holder.name_Button.setTag("green");
+                }
+
+            }else {
+
+                holder.name_Button.setTag("green");
+
+            }
+
             holder.name_Button.setOnClickListener(chooseListener);
 
 
             String img_url = ricetta.mNameOfImage;
 
             if (!img_url.equals("")) {
+
                 Picasso.with(this.mContext)
                         .load(img_url)
                         .resize(200, 160)
@@ -114,12 +148,8 @@ public class RicettaAdapter extends ArrayAdapter<Ricetta> {
             }
         }
 
-
         // returning the row view (because this is called getView after all)
         return row;
-
-
-
     }
 
     View.OnClickListener chooseListener = new View.OnClickListener() {
@@ -129,20 +159,27 @@ public class RicettaAdapter extends ArrayAdapter<Ricetta> {
 
             if(v.getTag() == "green"){
 
-                v.setTag("red");
-                 v.setBackgroundColor(Color.RED);
+                if(nrSelezionate < numeroDiRicette)
+                {
+                    v.setTag("red");
+                    //sharedPreferences.edit().putInt("clickedRicettaId", v.getId());
+                    v.setBackgroundColor(Color.RED);
+                    nrSelezionate++;
+                    nrDiRicetteTextView.setText(""+ nrSelezionate);
+                }else{
+                    Toast.makeText(getContext(), "Il tuo box e completo", Toast.LENGTH_SHORT).show();
+                }
             }
-            else
+            else if(v.getTag() == "red")
             {
                 v.setTag("green");
                 v.setBackgroundColor(Color.parseColor("#32CD32"));
+                nrSelezionate--;
+                nrDiRicetteTextView.setText(""+ nrSelezionate);
             }
-
 
             //Ricetta p = mData[viewPosition];
             //Toast.makeText(getContext(), p.mPopup, Toast.LENGTH_SHORT).show();
-
-
         }
     };
 

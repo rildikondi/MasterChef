@@ -10,7 +10,7 @@
     </string-array>
 
     <declare-styleable name="ExpandablePanel">
-        <attr name="animationDuration" format="reference"/>
+        <attr name="animationDuration" format="reference" />
         <attr name="handle" format="reference" />
         <attr name="content" format="reference" />
         <attr name="collapsedHeight" format="dimension" />
