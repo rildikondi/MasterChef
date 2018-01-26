@@ -70,6 +70,7 @@ public class DropDownsStep extends BaseStepFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        Log.i("onCreate", "DropDownCreated");
         Bundle bundle = new Bundle();
         bundle.putString("y", "koko"); //any string to be sent
         MainActivity mainActivity = (MainActivity) getActivity();
@@ -281,7 +282,6 @@ public class DropDownsStep extends BaseStepFragment {
             outState.putInt("thirdSelectedNr",vauleOfItem);
         }
     }
-
 
     public void handleItems(final LinearLayout firstItemsLn, final String nrSelection){
 

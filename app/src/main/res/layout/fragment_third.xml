@@ -163,7 +163,7 @@
                     android:layout_toEndOf="@+id/emailTextView"
                     android:layout_toRightOf="@+id/emailTextView"
                     android:background="#ffffff"
-                    android:inputType="text"
+                    android:inputType="textEmailAddress"
                     android:textColorLink="#ffffff" />
             </RelativeLayout>
 
@@ -197,7 +197,7 @@
                     android:layout_toEndOf="@+id/passwordTextView"
                     android:layout_toRightOf="@+id/passwordTextView"
                     android:background="#ffffff"
-                    android:inputType="text"
+                    android:inputType="textPassword"
                     android:textColorLink="#ffffff" />
             </RelativeLayout>
 
@@ -231,13 +231,9 @@
                     android:layout_toEndOf="@+id/passwordCTextView"
                     android:layout_toRightOf="@+id/passwordCTextView"
                     android:background="#ffffff"
-                    android:inputType="text"
+                    android:inputType="textPassword"
                     android:textColorLink="#ffffff" />
             </RelativeLayout>
-
-
-
-
 
             <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
@@ -267,7 +263,7 @@
                     android:layout_toEndOf="@+id/cellTextView"
                     android:layout_toRightOf="@+id/cellTextView"
                     android:background="#ffffff"
-                    android:inputType="text"
+                    android:inputType="phone"
                     android:textColorLink="#ffffff" />
             </RelativeLayout>
 
@@ -300,7 +296,7 @@
                     android:layout_toEndOf="@+id/telefonoTextView"
                     android:layout_toRightOf="@+id/telefonoTextView"
                     android:background="#ffffff"
-                    android:inputType="text"
+                    android:inputType="phone"
                     android:textColorLink="#ffffff" />
             </RelativeLayout>
 

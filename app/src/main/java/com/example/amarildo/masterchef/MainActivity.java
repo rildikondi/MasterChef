@@ -1,10 +1,14 @@
 package com.example.amarildo.masterchef;
 
+import android.os.PersistableBundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -29,34 +33,63 @@ public class MainActivity extends AppCompatActivity  {
     SharedPreferences sharedPreferences;
     List<BaseStepFragment> baseStepFragmentsList;
     FragmentManager manager;
+    int currentPos;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
+        super.onCreate(savedInstanceState, persistentState);
+    }
+
+    @Override
+    public View onCreateView(String name, Context context, AttributeSet attrs) {
+        return super.onCreateView(name, context, attrs);
+    }
+
+    @Override
+    public View onCreateView(View parent, String name, Context context, AttributeSet attrs) {
+        return super.onCreateView(parent, name, context, attrs);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_view_pager);
-        manager = getSupportFragmentManager();
+
+        Log.i("onCreate", "activiti on create");
         sharedPreferences = getSharedPreferences("com.example.amarildo.masterchef", Context.MODE_PRIVATE);
 
         buttons_LinearLayout = findViewById(R.id.buttonsLinearLayout);
         progress_Bar = findViewById(R.id.progressBar);
 
-        viewPager = findViewById(R.id.pager);
+        viewPager = (com.example.amarildo.masterchef.NonSwipeableViewPager) findViewById(R.id.pager);
         // We can declar viewPager ViewPager and cast it to com.example.amarildo.masterchef.NonSwipeableViewPager to use the overrided class methods
         //com.example.amarildo.masterchef.NonSwipeableViewPager prove = new com.example.amarildo.masterchef.NonSwipeableViewPager(getContext());
         //    prove = (com.example.amarildo.masterchef.NonSwipeableViewPager) viewPager;
 
         baseStepFragmentsList = getStepsFragment();
 
-        /*BaseStepFragment mMyFragment;
-
-           for(int i = 0; i < getStepsFragment().size(); i++){
-               mMyFragment = (BaseStepFragment) manager.getFragment(savedInstanceState,""+i);
-               baseStepFragmentsList.add(mMyFragment);
-        }*/
-
-
         adapterViewPager = new StepsPagerAdapter(getSupportFragmentManager(), baseStepFragmentsList);
         viewPager.setAdapter(adapterViewPager);
+        adapterViewPager.notifyDataSetChanged();
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+
+            Log.i("numberInPageListener", position+"");
+                currentPos = position;
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+
 
         //KeyboardUtil keyboardUtil = new KeyboardUtil(getActivity(), viewPager);
         //viewPager.setPagingEnabled(true);
@@ -94,48 +127,38 @@ public class MainActivity extends AppCompatActivity  {
 
     public void moveToNextFragment() {
 
-        int currentPos = viewPager.getCurrentItem();
-        int pos = viewPager.getCurrentItem() + 1;
-
-        Log.i("CurrentFragment", "" + pos);
+        int pos = currentPos + 1;
+        Log.i("currentItem", "" + currentPos);
 
         BaseStepFragment currentFragment = adapterViewPager.getFragment(currentPos);
         if (currentFragment.validateStep()) {
 
-            if(pos < baseStepFragmentsList.size()) {
-                viewPager.setCurrentItem(pos);
+            if(pos < adapterViewPager.getCount()) {
+
                 BaseStepFragment nextFragment = adapterViewPager.getFragment(pos);
                 nextFragment.updateGui();
+                viewPager.setCurrentItem(pos);
                 //adapterViewPager.notifyDataSetChanged();
                 progress_Bar.setProgress(pos);
             }
         }
     }
-
-
     public void moveToPreviuosFragment() {
 
-        int currentPos = viewPager.getCurrentItem();
-        int pos = viewPager.getCurrentItem() - 1;
+        int pos = currentPos - 1;
+        Log.i("currentItem", ""+ currentPos);
+        if(pos >=0 && pos != 1) {
 
-
-      /*if (pos == 0){
-
-          BaseStepFragment currentFragment = adapterViewPager.getFragment(pos);
-          adapterViewPager.setPrimaryItem(viewPager, 0,currentFragment );
-
-
-          adapterViewPager.notifyDataSetChanged();
-          viewPager.setCurrentItem(pos);
-            //viewPager.setCurrentItem(pos);
-            progress_Bar.setProgress(pos);
-        }else{*/
-
-            Log.i("currentItem", ""+ pos);
+            BaseStepFragment nextFragment = adapterViewPager.getFragment(pos);
+            nextFragment.updateGui();
             viewPager.setCurrentItem(pos);
-
             progress_Bar.setProgress(pos);
-        //}
+
+        }
+        if(pos == 1){
+            viewPager.setCurrentItem(pos);
+            progress_Bar.setProgress(pos);
+        }
     }
 
 
@@ -156,7 +179,6 @@ public class MainActivity extends AppCompatActivity  {
     }
 
     private void instantiateFragments(Bundle inState) {
-
 
     }
 

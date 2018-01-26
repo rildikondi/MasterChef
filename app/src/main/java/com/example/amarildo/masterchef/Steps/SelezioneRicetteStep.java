@@ -175,7 +175,7 @@ public class SelezioneRicetteStep extends BaseStepFragment {
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
 
-            ArrayList<Integer> selectedRicettePos = new ArrayList<>();
+        ArrayList<Integer> selectedRicettePos = new ArrayList<>();
         for(int i = 0; i < 5;i++){
             TextView t = ricette_ListView.getChildAt(i).findViewWithTag("red");
             if(t != null){

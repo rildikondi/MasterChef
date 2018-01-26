@@ -46,9 +46,6 @@ public class PersonalDataStep extends BaseStepFragment {
     public void onAttach(Context context) {
 
         super.onAttach(context);
-
-
-
     }
 
 
@@ -109,7 +106,7 @@ public class PersonalDataStep extends BaseStepFragment {
     }
 
     public boolean validate(){
-        final String nome = nome_EditText.getText().toString().trim();
+        /*final String nome = nome_EditText.getText().toString().trim();
         final String cognome = cognome_EditText.getText().toString().trim();
         final String nomeUtente = nomeUtente_EditText.getText().toString().trim();
         final String email = email_EditText.getText().toString().trim();
@@ -138,8 +135,9 @@ public class PersonalDataStep extends BaseStepFragment {
         }
         else{
             return true;
-        }
+        }*/
 
+        return true;
     }
 
 

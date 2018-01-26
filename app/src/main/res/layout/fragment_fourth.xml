@@ -37,19 +37,89 @@
                     android:textSize="14sp" />
             </LinearLayout>
 
-            <ExpandableListView
-                android:id="@+id/nuovoInExpandableListView"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/rounded_line"
                 android:layout_margin="15dp"
-                android:layout_marginBottom="20dp"
-                android:groupIndicator="@null" >
+                android:background="@drawable/rounded_line"
+                android:orientation="vertical">
 
-            </ExpandableListView>
+                <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:id="@+id/addressDropDownRL"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:visibility="gone">
+
+                    <ImageView
+                        android:id="@+id/iconIndicator"
+                        android:layout_width="30dp"
+                        android:layout_height="20dp"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/address" />
+
+                    <TextView
+                        android:id="@+id/dropDownHeaderTV"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginStart="23dp"
+                        android:layout_toEndOf="@+id/iconIndicator"
+                        android:layout_toRightOf="@+id/iconIndicator"
+                        android:text="SELEZIONA UN INDIRIZZO"
+                        android:textColor="#000000"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <ImageView
+                        android:id="@+id/arrowImage"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="10dp"
+                        android:background="@android:drawable/arrow_down_float" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:id="@+id/addressLinearLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:id="@+id/nuovoIndirizzoTextView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/rextangle_line"
+                        android:paddingBottom="10dp"
+                        android:paddingLeft="70dp"
+                        android:paddingTop="10dp"
+                        android:text="NUOVO INDIRIZZO"
+                        android:textColor="@android:color/darker_gray" />
+
+                    <TextView
+                        android:id="@+id/savedIndirizzoTextView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="10dp"
+                        android:paddingLeft="70dp"
+                        android:paddingTop="10dp"
+                        android:text="SAVED ADDRESS"
+                        android:textColor="@android:color/darker_gray" />
+
+                </LinearLayout>
+
+            </LinearLayout>
 
 
             <LinearLayout
+                android:id="@+id/addressEntriesLinearLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
@@ -61,26 +131,26 @@
                     android:background="@drawable/rouned_nome">
 
                     <TextView
-                        android:id="@+id/nomeTextView"
+                        android:id="@+id/nomeCitofonoTextView"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:background="#ffffff"
                         android:gravity="center_vertical"
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"
-                        android:text="NOME * "
+                        android:text="NOME SUL CITOFONO"
                         android:textColor="@android:color/darker_gray"
                         android:textSize="14sp" />
 
                     <EditText
-                        android:id="@+id/nomeEditText"
+                        android:id="@+id/nomeCitofonoEditText"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_alignParentEnd="true"
                         android:layout_alignParentRight="true"
                         android:layout_alignParentTop="true"
-                        android:layout_toEndOf="@+id/nomeTextView"
-                        android:layout_toRightOf="@+id/nomeTextView"
+                        android:layout_toEndOf="@+id/nomeCitofonoTextView"
+                        android:layout_toRightOf="@+id/nomeCitofonoTextView"
                         android:background="#ffffff"
                         android:inputType="text"
                         android:textColorLink="#ffffff" />
@@ -95,27 +165,27 @@
 
 
                     <TextView
-                        android:id="@+id/cognomeTextView"
+                        android:id="@+id/indirizzoTextView"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:background="#ffffff"
                         android:gravity="center_vertical"
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"
-                        android:text="COGNOME * "
+                        android:text="INDIRIZZO * "
                         android:textColor="@android:color/darker_gray"
                         android:textSize="14sp" />
 
 
                     <EditText
-                        android:id="@+id/cognomeEditText"
+                        android:id="@+id/indirizzoEditText"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_alignParentEnd="true"
                         android:layout_alignParentRight="true"
                         android:layout_alignParentTop="true"
-                        android:layout_toEndOf="@+id/cognomeTextView"
-                        android:layout_toRightOf="@+id/cognomeTextView"
+                        android:layout_toEndOf="@+id/indirizzoTextView"
+                        android:layout_toRightOf="@+id/indirizzoTextView"
                         android:background="#ffffff"
                         android:inputType="text"
                         android:textColorLink="#ffffff" />
@@ -129,27 +199,27 @@
 
 
                     <TextView
-                        android:id="@+id/emailTextView"
+                        android:id="@+id/pressoTextView"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:background="#ffffff"
                         android:gravity="center_vertical"
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"
-                        android:text="EMAIL  * "
+                        android:text="PRESSO"
                         android:textColor="@android:color/darker_gray"
                         android:textSize="14sp" />
 
 
                     <EditText
-                        android:id="@+id/emailEditText"
+                        android:id="@+id/pressoEditText"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_alignParentEnd="true"
                         android:layout_alignParentRight="true"
                         android:layout_alignParentTop="true"
-                        android:layout_toEndOf="@+id/emailTextView"
-                        android:layout_toRightOf="@+id/emailTextView"
+                        android:layout_toEndOf="@+id/pressoTextView"
+                        android:layout_toRightOf="@+id/pressoTextView"
                         android:background="#ffffff"
                         android:inputType="text"
                         android:textColorLink="#ffffff" />
@@ -162,26 +232,60 @@
                     android:foregroundTint="@android:color/darker_gray">
 
                     <TextView
-                        android:id="@+id/cellTextView"
+                        android:id="@+id/capTextView"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:background="#ffffff"
                         android:gravity="center_vertical"
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"
-                        android:text="CELL  * "
+                        android:text="CAP * "
                         android:textColor="@android:color/darker_gray"
                         android:textSize="14sp" />
 
                     <EditText
-                        android:id="@+id/cellEditText"
+                        android:id="@+id/capEditText"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_alignParentEnd="true"
                         android:layout_alignParentRight="true"
                         android:layout_alignParentTop="true"
-                        android:layout_toEndOf="@+id/cellTextView"
-                        android:layout_toRightOf="@+id/cellTextView"
+                        android:layout_toEndOf="@+id/capTextView"
+                        android:layout_toRightOf="@+id/capTextView"
+                        android:background="#ffffff"
+                        android:inputType="text"
+                        android:textColorLink="#ffffff" />
+                </RelativeLayout>
+
+                <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginBottom="2dp"
+                    android:background="@drawable/rouned_nome">
+
+
+                    <TextView
+                        android:id="@+id/cittaTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:background="#ffffff"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:text="CITTA * "
+                        android:textColor="@android:color/darker_gray"
+                        android:textSize="14sp" />
+
+
+                    <EditText
+                        android:id="@+id/cittaEditText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_toEndOf="@+id/cittaTextView"
+                        android:layout_toRightOf="@+id/cittaTextView"
                         android:background="#ffffff"
                         android:inputType="text"
                         android:textColorLink="#ffffff" />
@@ -192,33 +296,33 @@
                     android:layout_height="60dp"
                     android:background="@drawable/rouned_nome">
 
-
                     <TextView
-                        android:id="@+id/telefonoTextView"
+                        android:id="@+id/provinciaTextView"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:background="#ffffff"
                         android:gravity="center_vertical"
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"
-                        android:text="TELEFONO "
+                        android:text="PROVINCIA * "
                         android:textColor="@android:color/darker_gray"
                         android:textSize="14sp" />
 
 
                     <EditText
-                        android:id="@+id/telefonoEditText"
+                        android:id="@+id/provinciaEditText"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_alignParentEnd="true"
                         android:layout_alignParentRight="true"
                         android:layout_alignParentTop="true"
-                        android:layout_toEndOf="@+id/telefonoTextView"
-                        android:layout_toRightOf="@+id/telefonoTextView"
+                        android:layout_toEndOf="@+id/provinciaTextView"
+                        android:layout_toRightOf="@+id/provinciaTextView"
                         android:background="#ffffff"
                         android:inputType="text"
                         android:textColorLink="#ffffff" />
                 </RelativeLayout>
+
             </LinearLayout>
 
             <RelativeLayout
@@ -409,7 +513,7 @@
 
 
                     <TextView
-                        android:id="@+id/indirizzoTextView"
+                        android:id="@+id/indirizzoFatturaTextView"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:background="#ffffff"
@@ -422,14 +526,14 @@
 
 
                     <EditText
-                        android:id="@+id/indirizzoEditText"
+                        android:id="@+id/indirizzoFatturaEditText"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_alignParentEnd="true"
                         android:layout_alignParentRight="true"
                         android:layout_alignParentTop="true"
-                        android:layout_toEndOf="@+id/indirizzoTextView"
-                        android:layout_toRightOf="@+id/indirizzoTextView"
+                        android:layout_toEndOf="@+id/indirizzoFatturaTextView"
+                        android:layout_toRightOf="@+id/indirizzoFatturaTextView"
                         android:background="#ffffff"
                         android:inputType="text"
                         android:textColorLink="#ffffff" />
@@ -443,7 +547,7 @@
 
 
                     <TextView
-                        android:id="@+id/cittaTextView"
+                        android:id="@+id/cittaFatturaTextView"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:background="#ffffff"
@@ -456,14 +560,14 @@
 
 
                     <EditText
-                        android:id="@+id/cittaEditText"
+                        android:id="@+id/cittaFatturaEditText"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_alignParentEnd="true"
                         android:layout_alignParentRight="true"
                         android:layout_alignParentTop="true"
-                        android:layout_toEndOf="@+id/cittaTextView"
-                        android:layout_toRightOf="@+id/cittaTextView"
+                        android:layout_toEndOf="@+id/cittaFatturaTextView"
+                        android:layout_toRightOf="@+id/cittaFatturaTextView"
                         android:background="#ffffff"
                         android:inputType="text"
                         android:textColorLink="#ffffff" />
@@ -485,7 +589,7 @@
 
 
                         <TextView
-                            android:id="@+id/capTextView"
+                            android:id="@+id/capFatturaTextView"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:background="#ffffff"
@@ -498,14 +602,14 @@
 
 
                         <EditText
-                            android:id="@+id/capEditText"
+                            android:id="@+id/capFatturaEditText"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_alignParentEnd="true"
                             android:layout_alignParentRight="true"
                             android:layout_alignParentTop="true"
-                            android:layout_toEndOf="@+id/capTextView"
-                            android:layout_toRightOf="@+id/capTextView"
+                            android:layout_toEndOf="@+id/capFatturaTextView"
+                            android:layout_toRightOf="@+id/capFatturaTextView"
                             android:background="#ffffff"
                             android:inputType="text"
                             android:textColorLink="#ffffff" />
@@ -520,7 +624,7 @@
 
 
                         <TextView
-                            android:id="@+id/provinciaTextView"
+                            android:id="@+id/provinciaFatturaTextView"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:background="#ffffff"
@@ -533,14 +637,14 @@
 
 
                         <EditText
-                            android:id="@+id/provinciaEditText"
+                            android:id="@+id/provinciaFatturaEditText"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_alignParentEnd="true"
                             android:layout_alignParentRight="true"
                             android:layout_alignParentTop="true"
-                            android:layout_toEndOf="@+id/provinciaTextView"
-                            android:layout_toRightOf="@+id/provinciaTextView"
+                            android:layout_toEndOf="@+id/provinciaFatturaTextView"
+                            android:layout_toRightOf="@+id/provinciaFatturaTextView"
                             android:background="#ffffff"
                             android:inputType="text"
                             android:textColorLink="#ffffff" />
