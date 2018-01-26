@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import com.example.amarildo.masterchef.Steps.AddressDataStep;
+import com.example.amarildo.masterchef.Steps.DataDiArrivoStep;
 import com.example.amarildo.masterchef.Steps.DropDownsStep;
 import com.example.amarildo.masterchef.Steps.PersonalDataStep;
 import com.example.amarildo.masterchef.Steps.SelezioneRicetteStep;
@@ -121,6 +122,7 @@ public class MainActivity extends AppCompatActivity implements BaseFragment.Chan
         list.add(new SelezioneRicetteStep());
         list.add(new PersonalDataStep());
         list.add(new AddressDataStep());
+        list.add(new DataDiArrivoStep());
 
         return list;
     }
