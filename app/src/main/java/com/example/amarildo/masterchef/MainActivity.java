@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class MainActivity extends AppCompatActivity  {
+public class MainActivity extends AppCompatActivity implements BaseFragment.ChangeGuiListener  {
 
     private com.example.amarildo.masterchef.NonSwipeableViewPager viewPager;
     StepsPagerAdapter adapterViewPager;
@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity  {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_view_pager);
+        setContentView(R.layout.activity_main);
 
         Log.i("onCreate", "activiti on create");
         sharedPreferences = getSharedPreferences("com.example.amarildo.masterchef", Context.MODE_PRIVATE);
@@ -180,6 +180,16 @@ public class MainActivity extends AppCompatActivity  {
 
     private void instantiateFragments(Bundle inState) {
 
+    }
+
+    @Override
+    public void hideButtons() {
+        buttons_LinearLayout.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void showButtons() {
+        buttons_LinearLayout.setVisibility(View.VISIBLE);
     }
 
 }

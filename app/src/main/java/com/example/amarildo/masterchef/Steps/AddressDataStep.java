@@ -89,26 +89,15 @@ public class AddressDataStep extends BaseStepFragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_fourth, container, false);
+        handleViewTreeObserver(view);
         initializeViews(view);
         handleHeaderOne();
-
-       /* String savedAddress = sharedPreferences.getString("savedAddress", "");
-
-        Log.i("savedAddr", savedAddress);
-
-        if(!savedAddress.equals("")){
-            Log.i("savedAddress", savedAddress);
-            view.invalidate();
-            addressDropDown_RL.setVisibility(View.VISIBLE);
-            addressEntries_LinearLayout.setVisibility(View.GONE);
-
-        }*/
+        updateGui();
         return view;
     }
 
     public void initializeViews(View view){
 
-        handleViewTreeObserver(view);
         addressDropDown_RL = view.findViewById(R.id.addressDropDownRL);
         arrow_Image = view.findViewById(R.id.arrowImage);
         address_LinearLayout = view.findViewById(R.id.addressLinearLayout);
@@ -160,32 +149,25 @@ public class AddressDataStep extends BaseStepFragment {
 
                 if(arrow_Image.getRotation() == 0 ) {
 
-                    if(!nuovoAddress.equals("") && isSelected == true){
-                        //arrow_Image.animate().rotationBy(180).setDuration(300);
-                        //expand(address_LinearLayout);
-
+                    if(!nuovoAddress.equals("") && isSelected == true)
+                    {
                         indirizzo_EditText.setText(nuovoAddress);
-
                     }
-                        arrow_Image.animate().rotationBy(180).setDuration(300);
-                        expand(address_LinearLayout);
-                        expand(addressEntries_LinearLayout);
+                    arrow_Image.animate().rotationBy(180).setDuration(300);
+                    expand(address_LinearLayout);
+                    expand(addressEntries_LinearLayout);
 
                 }
                 else if(arrow_Image.getRotation() == 180){
 
-                    if(!nuovoAddress.equals("") && isSelected == true){
-
-                        //arrow_Image.animate().rotationBy(-180).setDuration(300);
+                    if(!nuovoAddress.equals("") && isSelected == true)
+                    {
                         collapse(address_LinearLayout);
-                        //expand(addressEntries_LinearLayout);
                         indirizzo_EditText.setText(nuovoAddress);
-
                     }
-                        arrow_Image.animate().rotationBy(-180).setDuration(300);
-                        collapse(address_LinearLayout);
-                        collapse(addressEntries_LinearLayout);
-
+                    arrow_Image.animate().rotationBy(-180).setDuration(300);
+                    collapse(address_LinearLayout);
+                    collapse(addressEntries_LinearLayout);
                 }
             }
         });
@@ -271,10 +253,11 @@ public class AddressDataStep extends BaseStepFragment {
             savedIndirizzo_TextView.setTag("green");
             savedIndirizzo_TextView.setTextColor(Color.GREEN);
             dropDownHeader_TextView.setText(savedAddress);
+            address_LinearLayout.setVisibility(View.GONE);
+            indirizzo_EditText.setText(savedAddress);
+
             if(arrow_Image.getRotation() == 180){
                 arrow_Image.animate().rotationBy(-180);
-                address_LinearLayout.setVisibility(View.GONE);
-                addressEntries_LinearLayout.setVisibility(View.GONE);
             }
         }
         else if(!savedAddress.equals("") && isSelected == true && !nuovoAddresValue.equals("")){
@@ -282,9 +265,11 @@ public class AddressDataStep extends BaseStepFragment {
             addressDropDown_RL.setVisibility(View.VISIBLE);
             if(arrow_Image.getRotation() == 180){
                 arrow_Image.animate().rotationBy(-180);
-                address_LinearLayout.setVisibility(View.GONE);
-                addressEntries_LinearLayout.setVisibility(View.GONE);
+
             }
+            address_LinearLayout.setVisibility(View.GONE);
+            addressEntries_LinearLayout.setVisibility(View.GONE);
+            indirizzo_EditText.setText(nuovoAddresValue);
             savedIndirizzo_TextView.setText(savedAddress);
             dropDownHeader_TextView.setText(nuovoAddresValue);
             nuovoIndirizzo_TextView.setTextColor(Color.GREEN);
@@ -311,7 +296,6 @@ public class AddressDataStep extends BaseStepFragment {
         View.OnClickListener secondItemsListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 TextView controlTextView = (TextView) v;
                 String contenti = (String) controlTextView.getText();
                 TextView tochange = (TextView) firstItemsLn.findViewWithTag("green");
@@ -331,7 +315,8 @@ public class AddressDataStep extends BaseStepFragment {
                         controlTextView.setTextColor(Color.GREEN);
                         controlTextView.setTag("green");
                     }
-                }else {
+                }
+                else {
 
                     if(tochange != null){
                         tochange.setTextColor(Color.parseColor("#FFAAAAAA"));
@@ -353,12 +338,5 @@ public class AddressDataStep extends BaseStepFragment {
         for (int i = 0; i < nrItems; i++){
             firstItemsLn.getChildAt(i).setOnClickListener(secondItemsListener);
         }
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-
-
     }
 }

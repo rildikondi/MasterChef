@@ -13,6 +13,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.example.amarildo.masterchef.BaseStepFragment;
 import com.example.amarildo.masterchef.MainActivity;
 import com.example.amarildo.masterchef.R;
@@ -102,10 +104,45 @@ public class DropDownsStep extends BaseStepFragment {
 
         // Inflate the layout for this fragment
         view =  inflater.inflate(R.layout.fragment_first, container, false);
-        Log.i("selection", "Shared secondSelectedNr "+ sharedPreferences.getInt("secondSelectedNr", 0));
-        Log.i("selection", "Shared thirdSelectedNr "+ sharedPreferences.getInt("thirdSelectedNr", 0));
+        handleViewTreeObserver(view);
+        initialize(view);
 
-        // arrow reference
+        if(savedInstanceState != null && savedInstanceState.getInt("firstSelected") != 0){
+            Log.i("selection", "Bundle thirdSelectedNr "+ savedInstanceState.getInt("thirdSelectedNr"));
+            TextView t  = firstItems_LinearLayout.findViewById(savedInstanceState.getInt("firstSelected"));
+            t.setTextColor(Color.GREEN);
+            t.setTag("green");
+            expand(firstItems_LinearLayout);
+            arrow.animate().rotationBy(180);
+        }
+        else {
+            expand(firstItems_LinearLayout);
+            arrow.animate().rotationBy(180);
+            TextView exampleSelected = (TextView) firstItems_LinearLayout.getChildAt(0);
+            exampleSelected.setTextColor(Color.GREEN);
+            exampleSelected.setTag("green");
+        }
+        if(savedInstanceState != null && savedInstanceState.getInt("secondSelected") != 0){
+
+            TextView t1  = secondItems_LinearLayout.findViewById(savedInstanceState.getInt("secondSelected"));
+            t1.setTextColor(Color.GREEN);
+            t1.setTag("green");
+            int vauleOfItem = savedInstanceState.getInt("secondSelectedNr");
+            sharedPreferences.edit().putInt("secondSelectedNr",vauleOfItem);
+        }
+        if(savedInstanceState != null && savedInstanceState.getInt("thirdSelected") != 0){
+
+            TextView t2  = thirdItems_LinearLayout.findViewById(savedInstanceState.getInt("thirdSelected"));
+            t2.setTextColor(Color.GREEN);
+            t2.setTag("green");
+            int vauleOfItem = savedInstanceState.getInt("thirdSelectedNr");
+            sharedPreferences.edit().putInt("thirdSelectedNr",vauleOfItem);
+        }
+
+        return view;
+    }
+
+    public void initialize(View view){
         arrow = (ImageView) view.findViewById(R.id.imageGroupIndicator);
         arrow1 = (ImageView) view.findViewById(R.id.imageGroupIndicator1);
         arrow2 = (ImageView) view.findViewById(R.id.imageGroupIndicator2);
@@ -124,44 +161,6 @@ public class DropDownsStep extends BaseStepFragment {
         thirdItems_LinearLayout = view.findViewById(R.id.thirdItemsLinearLayout);
         handleHeaderThree();
         handleItems(thirdItems_LinearLayout, "thirdSelectedNr");
-
-        if(savedInstanceState != null && savedInstanceState.getInt("firstSelected") != 0){
-
-            Log.i("selection", "Bundle thirdSelectedNr "+ savedInstanceState.getInt("thirdSelectedNr"));
-            TextView t  = firstItems_LinearLayout.findViewById(savedInstanceState.getInt("firstSelected"));
-            t.setTextColor(Color.GREEN);
-            t.setTag("green");
-            expand(firstItems_LinearLayout);
-            arrow.animate().rotationBy(180);
-        }
-        else {
-
-            expand(firstItems_LinearLayout);
-            arrow.animate().rotationBy(180);
-            TextView exampleSelected = (TextView) firstItems_LinearLayout.getChildAt(0);
-            exampleSelected.setTextColor(Color.GREEN);
-            exampleSelected.setTag("green");
-        }
-
-        if(savedInstanceState != null && savedInstanceState.getInt("secondSelected") != 0){
-
-            TextView t1  = secondItems_LinearLayout.findViewById(savedInstanceState.getInt("secondSelected"));
-            t1.setTextColor(Color.GREEN);
-            t1.setTag("green");
-            int vauleOfItem = savedInstanceState.getInt("secondSelectedNr");
-            sharedPreferences.edit().putInt("secondSelectedNr",vauleOfItem);
-        }
-
-        if(savedInstanceState != null && savedInstanceState.getInt("thirdSelected") != 0){
-
-            TextView t2  = thirdItems_LinearLayout.findViewById(savedInstanceState.getInt("thirdSelected"));
-            t2.setTextColor(Color.GREEN);
-            t2.setTag("green");
-            int vauleOfItem = savedInstanceState.getInt("thirdSelectedNr");
-            sharedPreferences.edit().putInt("thirdSelectedNr",vauleOfItem);
-        }
-
-        return view;
     }
 
     public void handleHeaderOne(){
@@ -353,13 +352,24 @@ public class DropDownsStep extends BaseStepFragment {
         int thirdSelectedValue = sharedPreferences.getInt("thirdSelectedNr",0);
         Log.i("positionArriveInMain", secondSelectedValue+"");
 
-        if(secondSelectedValue != 0 && thirdSelectedValue != 0)
+        if(secondSelectedValue == 0 && thirdSelectedValue != 0 )
+        {
+            Toast.makeText(getActivity(), "Selezoni il numero di recette !", Toast.LENGTH_SHORT).show();
+        }
+        else if(thirdSelectedValue == 0 && secondSelectedValue != 0 )
+        {
+            Toast.makeText(getActivity(), "Selezoni il numero di persone !", Toast.LENGTH_SHORT).show();
+        }
+        else if(secondSelectedValue != 0 && thirdSelectedValue != 0)
         {
             return true;
         }
         else
         {
+            Toast.makeText(getActivity(), "Selezoni i menu !", Toast.LENGTH_SHORT).show();
             return false;
         }
+
+        return false;
     }
 }

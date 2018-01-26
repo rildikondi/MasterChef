@@ -75,7 +75,6 @@ public class SelezioneRicetteStep extends BaseStepFragment {
     }
 
     public static SelezioneRicetteStep newInstance(int param1) {
-
         SelezioneRicetteStep fragment = new SelezioneRicetteStep();
         Bundle args = new Bundle();
         args.putInt(ARG_PARAM1, param1);
@@ -99,7 +98,7 @@ public class SelezioneRicetteStep extends BaseStepFragment {
 
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_second, container, false);
-
+        handleViewTreeObserver(view);
         sharedPreferences = getActivity().getSharedPreferences("com.example.amarildo.masterchef", Context.MODE_PRIVATE);
         //KeyboardUtil keyboardUtil = new KeyboardUtil(getActivity(), v);
 
@@ -114,7 +113,6 @@ public class SelezioneRicetteStep extends BaseStepFragment {
             nrSelezionate_TextView.setText(savedPositions.size()+"");
         }
 
-        handleViewTreeObserver(view);
         ricettaAdapter = new RicettaAdapter(getActivity().getApplicationContext(), R.layout.riccetta_row, riccette,
                 nrTotaleDiRicette, savedPositions, nrSelezionate_TextView);
         ricette_ListView.setAdapter(ricettaAdapter);
@@ -143,6 +141,7 @@ public class SelezioneRicetteStep extends BaseStepFragment {
         int totali = sharedPreferences.getInt("secondSelectedNr",0);
         int diff = totali - selezionati;
         if(diff == 0){
+
             return true;
         }else{
             Toast.makeText(getContext(), "Seleziona ancora " + diff, Toast.LENGTH_SHORT).show();
@@ -158,8 +157,6 @@ public class SelezioneRicetteStep extends BaseStepFragment {
                 nrTotaleDiRicette, null, nrSelezionate_TextView);
         ricette_ListView.setAdapter(ricettaAdapter);
         ricettaAdapter.notifyDataSetChanged();
-
-
 
         nrSelezionate_TextView.setText(""+0);
 

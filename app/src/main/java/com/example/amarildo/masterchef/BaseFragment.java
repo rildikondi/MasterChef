@@ -34,7 +34,21 @@ public class BaseFragment extends Fragment {
 
     public interface ChangeGuiListener {
 
-        void changeGraphics();
+        void hideButtons();
+        void showButtons();
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        if (context instanceof ChangeGuiListener) {
+            changeGuiListener = (ChangeGuiListener) context;
+        }
+        else{
+            throw new RuntimeException(context.toString()
+                    + " must implement OnNewNoteListener");
+        }
     }
 
     public static BaseFragment newInstance(int param1) {
@@ -63,7 +77,8 @@ public class BaseFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_base, container, false);
+        View view = inflater.inflate(R.layout.fragment_base, container, false);
+        return view;
     }
 
     @Override
@@ -137,11 +152,13 @@ public class BaseFragment extends Fragment {
                 //r will be populated with the coordinates of your view that area still visible.
                 v.getWindowVisibleDisplayFrame(r);
 
-                int heightDiff = v.getRootView().getHeight() - (r.bottom - r.top);
+                int heightDiff = v.getRootView().getHeight() - (r.bottom);
                 if (heightDiff > 500) { // if more than 100 pixels, its probably a keyboard...
-                    v.setPadding(0,0,0,360);
+                    changeGuiListener.hideButtons();
+                    v.setPadding(0,0,0,0);
                 }
                 else{
+                    changeGuiListener.showButtons();
                     v.setPadding(0,0,0,0);
                 }
             }
