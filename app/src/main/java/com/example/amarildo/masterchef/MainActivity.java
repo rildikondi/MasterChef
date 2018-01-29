@@ -14,6 +14,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.TextView;
+
 import com.example.amarildo.masterchef.Steps.AddressDataStep;
 import com.example.amarildo.masterchef.Steps.DataDiArrivoStep;
 import com.example.amarildo.masterchef.Steps.DropDownsStep;
@@ -34,6 +36,7 @@ public class MainActivity extends AppCompatActivity implements BaseFragment.Chan
     SharedPreferences sharedPreferences;
     List<BaseStepFragment> baseStepFragmentsList;
     FragmentManager manager;
+    TextView currentPage_TextView;
     int currentPos;
 
     @Override
@@ -61,16 +64,22 @@ public class MainActivity extends AppCompatActivity implements BaseFragment.Chan
 
         buttons_LinearLayout = findViewById(R.id.buttonsLinearLayout);
         progress_Bar = findViewById(R.id.progressBar);
-
+        currentPage_TextView = findViewById(R.id.currentPageTextView);
         viewPager = (com.example.amarildo.masterchef.NonSwipeableViewPager) findViewById(R.id.pager);
         // We can declar viewPager ViewPager and cast it to com.example.amarildo.masterchef.NonSwipeableViewPager to use the overrided class methods
         //com.example.amarildo.masterchef.NonSwipeableViewPager prove = new com.example.amarildo.masterchef.NonSwipeableViewPager(getContext());
         //    prove = (com.example.amarildo.masterchef.NonSwipeableViewPager) viewPager;
 
         baseStepFragmentsList = getStepsFragment();
-
         adapterViewPager = new StepsPagerAdapter(getSupportFragmentManager(), baseStepFragmentsList);
         viewPager.setAdapter(adapterViewPager);
+
+        if(savedInstanceState != null){
+            currentPos = savedInstanceState.getInt("nrOfCurrentPage");
+            viewPager.setCurrentItem(currentPos);
+            currentPage_TextView.setText(currentPos+1+"");
+        }
+
         adapterViewPager.notifyDataSetChanged();
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -80,8 +89,7 @@ public class MainActivity extends AppCompatActivity implements BaseFragment.Chan
 
             @Override
             public void onPageSelected(int position) {
-
-            Log.i("numberInPageListener", position+"");
+                Log.i("numberInPageListener", position+"");
                 currentPos = position;
             }
 
@@ -141,6 +149,7 @@ public class MainActivity extends AppCompatActivity implements BaseFragment.Chan
                 nextFragment.updateGui();
                 viewPager.setCurrentItem(pos);
                 //adapterViewPager.notifyDataSetChanged();
+                currentPage_TextView.setText(pos+1+"");
                 progress_Bar.setProgress(pos);
             }
         }
@@ -154,11 +163,13 @@ public class MainActivity extends AppCompatActivity implements BaseFragment.Chan
             BaseStepFragment nextFragment = adapterViewPager.getFragment(pos);
             nextFragment.updateGui();
             viewPager.setCurrentItem(pos);
+            currentPage_TextView.setText(pos+1+"");
             progress_Bar.setProgress(pos);
 
         }
         if(pos == 1){
             viewPager.setCurrentItem(pos);
+            currentPage_TextView.setText(pos+1+"");
             progress_Bar.setProgress(pos);
         }
     }
@@ -177,7 +188,9 @@ public class MainActivity extends AppCompatActivity implements BaseFragment.Chan
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
+
         super.onSaveInstanceState(outState);
+        outState.putInt("nrOfCurrentPage", currentPos);
     }
 
     private void instantiateFragments(Bundle inState) {
