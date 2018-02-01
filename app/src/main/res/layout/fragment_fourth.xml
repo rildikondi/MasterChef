@@ -4,15 +4,10 @@
     android:layout_height="match_parent"
     android:id="@+id/fourthLinearLayout"
     tools:context="com.example.amarildo.masterchef.Steps.AddressDataStep">
-
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/fourthScrollView">
-
-
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -25,7 +20,6 @@
                 android:orientation="horizontal"
                 android:paddingBottom="20dp"
                 android:paddingTop="15dp">
-
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
@@ -395,6 +389,88 @@
                 android:text="quello di spedizione"
                 android:textColor="#000000"
                 android:textSize="12sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                android:background="@drawable/rounded_line"
+                android:orientation="vertical">
+
+                <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:id="@+id/fatturaAddressDropDownRL"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:visibility="gone">
+
+                    <ImageView
+                        android:id="@+id/iconIndicator2"
+                        android:layout_width="30dp"
+                        android:layout_height="20dp"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/address" />
+
+                    <TextView
+                        android:id="@+id/dropDownHeader2TV"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginStart="23dp"
+                        android:layout_toEndOf="@+id/iconIndicator2"
+                        android:layout_toRightOf="@+id/iconIndicator2"
+                        android:text="SELEZIONA UN INDIRIZZO"
+                        android:textColor="#000000"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <ImageView
+                        android:id="@+id/arrow2Image"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="10dp"
+                        android:background="@android:drawable/arrow_down_float" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:id="@+id/fatturaAddressLinearLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:id="@+id/nuovoIndirizzoFattTextView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/rextangle_line"
+                        android:paddingBottom="10dp"
+                        android:paddingLeft="70dp"
+                        android:paddingTop="10dp"
+                        android:text="NUOVO INDIRIZZO"
+                        android:textColor="@android:color/darker_gray" />
+
+                    <TextView
+                        android:id="@+id/savedFattIndirizzoTextView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="10dp"
+                        android:paddingLeft="70dp"
+                        android:paddingTop="10dp"
+                        android:visibility="gone"
+                        android:text="SAVED ADDRESS"
+                        android:textColor="@android:color/darker_gray" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
 
             <LinearLayout
                 android:id="@+id/fattCommLinearLayout"

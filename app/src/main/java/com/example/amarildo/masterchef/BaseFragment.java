@@ -21,8 +21,6 @@ import android.widget.TextView;
 public class BaseFragment extends Fragment {
 
     private static final String ARG_PARAM1 = "param1";
-
-
     private int mParam1;
 
     public BaseFragment() {
